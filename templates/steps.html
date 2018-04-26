@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block content %}
-<form name="form" action="{{ url_for('index') }}" method="POST">
+<form name="form" action="{{ url_for('create_applications') }}" method="POST">
     <h3>Deploy Spoke (The P2P Texting Tool)</h3>
     <p> Now you're going to deploy Spoke in 6 easy steps</p>
     <div id="step1" class="collapse in">
@@ -8,17 +8,24 @@
         </h4>
         <p>Heroku is where your Spoke app will live.</p>
         <p>Once you've signed up, you'll need to click the confirmation link in your email too</p>
+        <p>Once you've confirmed your email and logged in for the first time, come back here (Don't click 'Create an App' just yet)</p>
         <a href="#" class="btn btn-success" data-toggle="collapse" data-target="#step1,#step2">Thanks, I'm all signed up!</a>
     </div>
 
 
     <div id="step2" class="collapse">
         <h4>
-            <a href="https://auth0.com/signup" target="_blank">Step 2: Sign up for Auth0 and provide your token (So Spoke-Deploy can configure it for you)</a>
+            <a href="https://auth0.com/signup" target="_blank">Step 2: Sign up for Auth0</a>
         </h4>
         <p>Auth0 handles your user signup and authentication</p>
         <p>Once you've signed up, you'll need to click the confirmation link in your email too</p>
-        <a href="#" class="btn btn-success" data-toggle="collapse" data-target="#step2,#step3">Thanks, I'm signed up for Auth0</a>
+        <p>When you reach the "Welcome to Auth0" Dashboard, come back here</p>
+        <p>Now, please enter your auth0 domain</p>
+        <div class="input-group">
+                <input type="text" class="form-control" placeholder="myauthzero" aria-describedby="authzero_domain" id="authzero_domain" name="authzero_domain">
+                <span class="input-group-addon">.auth0.com</span>
+        </div>
+        <a href="#" class="btn btn-success" data-toggle="collapse" data-target="#step2,#step3">Thanks, I've entered my Auth0 domain</a>
     </div>
 
 
@@ -26,7 +33,7 @@
         <h4>
             <a href="https://manage.auth0.com/#/apis/management/explorer" target="_blank">Step 3: Create an Auth0 Token</a>
         </h4>
-        <p>Click the button that says "Create and authorise a somethingsomething"</p>
+        <p>Click the button that says "CREATE & AUTHORIZE A TEST APPLICATION"</p>
         <p>Copy and paste the token in to the box below</p>
         <div class="input-group">
             <input type="text" class="form-control" placeholder="my_auth0_token" aria-describedby="authzero_token" id="authzero_token"
@@ -37,19 +44,19 @@
 
     <div id="step4" class="collapse">
         <h4>
-            <a href="https://www.twilio.com/try-twilio">Step 4: Sign up for Twilio</a>
+            <a href="https://www.twilio.com/try-twilio" target="_blank">Step 4: Sign up for Twilio</a>
         </h4>
         <p>Twilio handles the sending and receiving of SMS messages to and from your Spoke volunteers</p>
         <p>
             <strong>Note! You'll need to
-                <a href="https://www.twilio.com/console/billing/upgrade">add a credit card and load your Twilio account with credit (min $20)</a> before you can text your supporters</strong>
+                <a href="https://www.twilio.com/console/billing/upgrade" target="_blank">add a credit card and load your Twilio account with credit (min $20)</a> before you can text your supporters</strong>
         </p>
         <a href="#" class="btn btn-success" data-toggle="collapse" data-target="#step4,#step5">I've signed up for Twilio</a>
     </div>
 
     <div id="step5" class="collapse">
         <h4>
-            <a href="https://www.twilio.com/console">Step 5: Find your Twilio Account SID and Auth Token</a>
+            <a href="https://www.twilio.com/console" target="_blank">Step 5: Find your Twilio Account SID and Auth Token</a>
         </h4>
         <p>You'll need to click the little eye icon to display your auth token in the console</p>
         <div class="input-group">
@@ -65,7 +72,7 @@
             <h4>
                 Step 6: Deploy Spoke!
             </h4>
-            <p>On the next page you'll be asked to choose a name for your app, then just click Deploy and you'll be texting</p>
+            <p>On the next page you'll see a 'Deploy to Heroku' button. Click it and Spoke will deploy to the cloud</p>
             <button type="submit" class="btn btn-success" id="submit" name="submit" />Ready to Deploy!</button>
         </div>
 
