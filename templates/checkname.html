@@ -1,9 +1,10 @@
 {% extends "base.html" %} 
 
 {% block content %}
-
+<h3>Deploy Spoke (The P2P Texting Tool)</h3>
+<h3> Step 0: Choose a name:</h3>
 <form name="form" action="{{ url_for('check_heroku_name') }}" method="POST">
-    <h3> Step 2 of {{session['steps']}}</h3>
+    
     <p> Choose a name for your app:</p>
     <div class="row">
         <div class="col-sm-4">
@@ -16,7 +17,7 @@
     <div class="row">
         <div class="col-sm-12">
             <br>
-            <button type="submit" class="btn btn-success" id="submit" name="submit" />Check my name's available</button>
+            <button type="submit" class="btn btn-success" id="submit" name="submit">Check if my name is available</button>
         </div>
     </div>
 </form>

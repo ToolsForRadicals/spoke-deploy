@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h3> Step 4 of {{session['steps']}}</h3>
+<p>
+    <ul>
+        <li>Now, <a href="https://auth0.com/signup" target="_blank">Sign up for a new Auth0 Account</a></li>
+        <li>Second, check your email and click the confirmation link</li>
+        <li>Third, <a href="https://manage.auth0.com/#/apis/management/explorer" target="_blank">create a Management API token</a></li>
+        <li>Click "Create and Authorize a new somethingsomething</li>
+        <li>Copy the token here</li>
+    </ul>
+</p>
+<form name="form" action="{{ url_for('create_authzero_application') }}" method="POST">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="my_auth0_token" aria-describedby="authzero_token" id="authzero_token" name="authzero_token">
+        </div>
+        <button type="submit" class="btn btn-success" id="submit" name="submit" />Create my Auth0 application</button>
+
+<a href="{{url_for('create_authzero_account')}}" class="btn btn-success">Thanks, I'm all signed up!</a>
+{% endblock %}

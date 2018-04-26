@@ -1,4 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <h3> Step 3 of {{session['steps']}}</h3>
+<ul>
+    <li><p>First, <a href="https://signup.heroku.com" target="_blank">Sign up for a new Heroku Account</a></p></li>
+    <li><p>Second, check your email and click the confirmation link</p></li>
+</ul>
+<a href="{{url_for('create_authzero_account')}}" class="btn btn-success">Thanks, I'm all signed up!</a>
 {% endblock %}
