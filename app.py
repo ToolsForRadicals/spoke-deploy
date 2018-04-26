@@ -108,16 +108,13 @@ def check_heroku_name():
                                                           'app_name'])
     headers = {'Content-type': 'application/json',
                'Accept': 'application/vnd.heroku+json; version=3'}
-    session['name_available'] = (requests.get(
-        desired_url, headers=headers).json()['id'] == 'not_found')
-
-    if session['name_available']:
-        flash('Your Heroku Name is available!','success')
-        return redirect(url_for('steps'))
-
-    else:
-        app_name_already_taken_message = 'Sorry, the name {} is already taken'.format(
-            request.form['app_name'])
+    try:
+        session['name_available'] = (requests.get(desired_url, headers=headers).json()['id'] == 'not_found')
+        if session['name_available']:
+            flash('Your Heroku Name is available!','success')
+            return redirect(url_for('steps'))
+    except:
+        app_name_already_taken_message = 'Sorry, the name {} is already taken'.format(request.form['app_name'])
         flash(app_name_already_taken_message,"danger")
         return redirect(url_for('index'))
 
@@ -148,3 +145,4 @@ def create_heroku_deploy_button():
 if __name__ == '__main__':
     app.debug = True
     app.run(host="0.0.0.0")
+
