@@ -1,7 +1,8 @@
-import flask
+from flask import Flask, flash, session, render_template, request, redirect, url_for
 from flask_session import Session
+import requests
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
@@ -10,27 +11,46 @@ app.debug = True
 app.secret_key = "q9283jrisadjfklasdfoqiwe82934u329sdf"
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    session['steps'] = 99
     # What do you want to call your app?
-    return()
+    # Validation rules: lowercase, alphanum, dashes ok, underscores not
+    return render_template("index.html")
+
 
 @app.route('/check_heroku_name', methods=['POST'])
 def check_heroku_name():
-    #Check to see if the heroku name is available
-    # TODO: Reserve it somehow during this process?
-    return()
+    desired_url = "https://api.heroku.com/apps/{}".format(request.form[
+                                                          'app_name'])
+    headers = {'Content-type': 'application/json',
+               'Accept': 'application/vnd.heroku+json; version=3'}
+    session['name_available'] = (requests.get(
+        desired_url, headers=headers).json()['id'] == 'not_found')
+
+    if session['name_available']:
+        flash('Your Heroku Name is available!')
+        return redirect(url_for('create_heroku_account'))
+
+    else:
+        app_name_already_taken_message = 'Sorry, the name {} is already taken'.format(
+            request.form['app_name'])
+        flash(app_name_already_taken_message)
+        return redirect(url_for('index'))
+
 
 @app.route('/create_heroku_account')
 def create_heroku_account():
     #Get the user to sign up for Heroku - No API for this
-    return()
+    return render_template("heroku.html")
+
 
 @app.route('/create_authzero_account')
 def create_authzero_account():
     #Get the user to sign up for Auth0 - No API for this
     #Walk the user through creating an API key / token
     return()
+
 
 @app.route('/create_authzero_application')
 def create_authzero_application():
@@ -40,10 +60,12 @@ def create_authzero_application():
     #Create Auth0 rule
     return()
 
+
 @app.route('/create_twilio_account')
 def create_twilio_account():
     #Get the user to sign up for Twilio - No API for this
     return()
+
 
 @app.route('/create_twilio_application')
 def create_twilio_application():
@@ -54,6 +76,7 @@ def create_twilio_application():
     # From somewhere else? collect Twilio auth token
     # Purchase a Twilio number and tell the user what it is
     return()
+
 
 @app.route('/deploy')
 def create_heroku_deploy_button():
@@ -76,47 +99,5 @@ def create_heroku_deploy_button():
     return(deploy_url)
 
 
-
-
-
-
-
-
-
-
-
-# TODO
-
-## 
-
-## Do you already have any of the following?
-* Heroku Account
-* Twilio Account
-* Auth0 Account
-
-## Create Heroku account
-    * Check app name is available on Heroku
-
-## Create Auth0 account
-    * Create Auth0 Application
-        * Set Callback, Logout, CORS, Web Origins
-        * Collect Domain name, Client ID, Client Secret
-        * Set OIDC Conformant Off
-        * Create a rule in Auth0
-
-## Create Twilio account
-    * Create a new Messaging Service
-    * Enable Process Inbound Messages
-        * Add Inbound Request URL
-    * Add Outbound Status Callback URL
-    * Collect Twilio Account SID (API Key), Twilio Message Service ID (Twilio Application ID), and Twilio Auth Token
-    * Purchase a Twilio Phone number (or provide a popup to remind the user to do it)
-
-## Create a Heroku Deploy button
-
-## Done
-
-
-
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
