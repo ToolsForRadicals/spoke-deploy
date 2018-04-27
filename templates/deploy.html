@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 <h3>Final Step! Deploy to Heroku</h3>
-<p>Remember to fill in the first field (app name) with your chosen app name, {{session['app_name']}}</p>
+<p>Remember to fill in the first field (app name) with your chosen app name, <strong>{{session['app_name']}}</strong></p>
 <a href="{{deploy_url}}" class="btn btn-success" target="_blank">Deploy to Heroku!</a>
 {% endblock %}

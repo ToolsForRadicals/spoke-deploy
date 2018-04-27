@@ -29,13 +29,13 @@ def create_authzero_application(authzero_domain,authzero_token):
     params['allowed_logout_urls'].append('https://{}.herokuapp.com/logout-callback'.format(session['app_name']))
     params['allowed_logout_urls'].append('http://{}.herokuapp.com/logout-callback'.format(session['app_name']))
 
-    params['allowed_origins'] = list()
-    params['allowed_origins'].append('https://{}.herokuapp.com'.format(session['app_name']))
-    params['allowed_origins'].append('http://{}.herokuapp.com'.format(session['app_name']))
-
     params['web_origins'] = list()
-    params['web_origins'].append('https://*.{}.herokuapp.com'.format(session['app_name']))
-    params['web_origins'].append('http://*.{}.herokuapp.com'.format(session['app_name']))
+    params['web_origins'].append('https://{}.herokuapp.com'.format(session['app_name']))
+    params['web_origins'].append('http://{}.herokuapp.com'.format(session['app_name']))
+
+    params['allowed_origins'] = list()
+    params['allowed_origins'].append('https://*.{}.herokuapp.com'.format(session['app_name']))
+    params['allowed_origins'].append('http://*.{}.herokuapp.com'.format(session['app_name']))
 
     params['oidc_conformant'] = False
 
@@ -65,8 +65,19 @@ def create_twilio_application(twilio_account_sid,twilio_auth_token):
                     .create(friendly_name=friendly_name,
                             inbound_request_url=inbound_request_url,
                             status_callback=status_callback,
-                            fallback_url=fallback_url
+                            fallback_url=fallback_url,
                         )
+    numbers = client.available_phone_numbers("AU") \
+               .mobile \
+               .list()
+
+    number = client.incoming_phone_numbers \
+              .create(phone_number=numbers[0].phone_number)
+
+    phone_number = client.messaging \
+                    .services(sid=service.sid) \
+                    .phone_numbers \
+                    .create(phone_number_sid=number.sid)
     return service
 
 @app.route('/', methods=['GET', 'POST'])
@@ -88,15 +99,18 @@ def create_applications():
         authzero_result = create_authzero_application(session['authzero_domain'],session['authzero_token'])
         session['authzero_client_id'] = authzero_result['client_id']
         session['authzero_client_secret'] = authzero_result['client_secret']
-    except:
-        flash("Couldn't create your Auth0 service. Double check your token and domain?","danger")
+    except Exception as e:
+        error_message = "Couldn't create your Auth0 service. Double check your token and domain?<br>The Error message was: {}".format(str(e))
+        flash(error_message,"danger")
         return redirect(url_for("steps"))
 
     try:
         twilio_result = create_twilio_application(session['twilio_account_sid'],session['twilio_auth_token'])
         session['twilio_message_service_sid'] = twilio_result.sid
-    except:
-        flash("Couldn't create your Twilio service. Double check your account sid and auth key?","danger")
+        
+    except Exception as e:
+        error_message = "Couldn't create your Twilio service. Double check your account sid and auth key?<br>The Error message was: {}".format(str(e))
+        flash(error_message,"danger")
         return redirect(url_for("steps"))
 
     return redirect(url_for('create_heroku_deploy_button'))
