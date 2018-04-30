@@ -4,11 +4,15 @@ import requests
 from random import randrange
 from auth0.v3.management import Auth0
 from twilio.rest import Client
+import os
+
+country = os.getenv(('COUNTRY_CODE'),"AU")
 
 app = Flask(__name__)
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
+
 
 app.debug = True
 app.secret_key = "q9283jrisadjfklasdfoqiwe82934u329sdf"

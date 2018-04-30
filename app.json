@@ -1,0 +1,19 @@
+{
+    "name": "Spoke Deploy",
+    "description": "A small web app to deploy Spoke the P2P texting app",
+    "repository": "https://github.com/ToolsforRadicals/spoke-deploy",
+    "logo": "https://node-js-sample.herokuapp.com/node.png",
+    "keywords": [
+        "python",
+        "spoke",
+        "twilio"
+    ],
+    "env": {
+          "COUNTRY_CODE": {
+            "description": "Your two letter country code (used for purchasing a Twilio Number in that Country)",
+            "value": "AU"
+          }
+        }
+      
+      
+}
