@@ -104,7 +104,7 @@ def create_applications():
         session['authzero_client_id'] = authzero_result['client_id']
         session['authzero_client_secret'] = authzero_result['client_secret']
     except Exception as e:
-        error_message = "Couldn't create your Auth0 service. Double check your token and domain?<br>The Error message was: {}".format(str(e))
+        error_message = "Couldn't create your Auth0 service. Double check your token and domain?.  The Error message was: {}".format(str(e))
         flash(error_message,"danger")
         return redirect(url_for("steps"))
 
@@ -113,7 +113,7 @@ def create_applications():
         session['twilio_message_service_sid'] = twilio_result.sid
         
     except Exception as e:
-        error_message = "Couldn't create your Twilio service. Double check your account sid and auth key?<br>The Error message was: {}".format(str(e))
+        error_message = "Couldn't create your Twilio service. Double check your account sid and auth key?  The Error message was: {}".format(str(e))
         flash(error_message,"danger")
         return redirect(url_for("steps"))
 
