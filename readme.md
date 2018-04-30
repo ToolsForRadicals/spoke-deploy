@@ -1,30 +1,27 @@
-# TODO
+# Spoke Deploy
 
-## What do you want to call your app?
+An app to automatically deploy Spoke(https://opensource.moveon.org/spoke/) to Heroku for you.
 
-## Do you already have any of the following?
-* Heroku Account
-* Twilio Account
-* Auth0 Account
+## Getting Started
 
-## Create Heroku account
-    * Check app name is available on Heroku
+You can deploy this app to Heroku too:
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-## Create Auth0 account
-    * Create Auth0 Application
-        * Set Callback, Logout, CORS, Web Origins
-        * Collect Domain name, Client ID, Client Secret
-        * Set OIDC Conformant Off
-        * Create a rule in Auth0
+Or you can use the one at https://spokedeploy.herokuapp.com
 
-## Create Twilio account
-    * Create a new Messaging Service
-    * Enable Process Inbound Messages
-        * Add Inbound Request URL
-    * Add Outbound Status Callback URL
-    * Collect Twilio Account SID (API Key), Twilio Message Service ID (Twilio Application ID), and Twilio Auth Token
-    * Purchase a Twilio Phone number (or provide a popup to remind the user to do it)
+### Prerequisites
 
-## Create a Heroku Deploy button
+During Deployment, you'll need to sign up for an account with Auth0 and Twilio. You'll also need to add at least $20 to your Twilio account in order to start texting.
 
-## Done
+## Built With
+
+* [Flask](http://flask.pocoo.org) - The web framework used
+
+
+## Contributing
+
+Contributions very welcome, pull requests welcome. Feedback on an actual deployment also welcome
+
+## Authors
+
+* **Anthony Mockler** - *Initial work* - [IAmCarbonatedMilk](https://iamcarbonatedmilk.com)
