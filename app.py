@@ -71,7 +71,7 @@ def create_twilio_application(twilio_account_sid,twilio_auth_token):
                             status_callback=status_callback,
                             fallback_url=fallback_url,
                         )
-    numbers = client.available_phone_numbers("AU") \
+    numbers = client.available_phone_numbers(country) \
                .mobile \
                .list()
 
