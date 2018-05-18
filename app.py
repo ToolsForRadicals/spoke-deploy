@@ -153,7 +153,7 @@ def create_heroku_deploy_button():
     env[TWILIO_APPLICATION_SID]={twilio_message_service_sid}&
     env[TWILIO_AUTH_TOKEN]={twilio_auth_token}&
     env[TWILIO_MESSAGE_SERVICE_SID]={twilio_message_service_sid}&
-    env[TWILIO_STATUS_CALLBACK_URL]=https://{heroku_base_url}/twilio-message-report&
+    env[TWILIO_STATUS_CALLBACK_URL]={heroku_base_url}/twilio-message-report&
     env[PHONE_NUMBER_COUNTRY]=AU&
     env[DST_REFERENCE_TIMEZONE]=Australia/Melbourne
     '''.format(**session).replace('\n','').replace(' ','')
