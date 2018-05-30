@@ -1,12 +1,13 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
 {% block content %}
-<h3>Deploy Spoke (The P2P Texting Tool)</h3>
-<h3> Step 0: Choose a name:</h3>
+<h2>Deploy Spoke (The Peer to Peer Texting Tool)</h2>
+<p> This is a tool to help you deploy Spoke to an Heroku Instance.</p>
+<p> <i> To contribute to this tool, please visit the <a href='https://github.com/ToolsForRadicals/spoke-deploy'> Github Project Repository. </a> </i> </p>
+
+<h3> Before starting - choose a name for your application:</h3>
 <form name="form" action="{{ url_for('check_heroku_name') }}" method="POST">
-    
-    <p> Choose a name for your app:</p>
-    <br>
+    <br/>
     <div class="row">
         <div class="col-sm-4">
             <div class="input-group">
