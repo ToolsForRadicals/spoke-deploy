@@ -140,7 +140,7 @@ def check_heroku_name():
 
 @app.route('/deploy')
 def create_heroku_deploy_button():
-    session['template'] = 'https://github.com/MoveOnOrg/Spoke/tree/v1.3'
+    session['template'] = 'https://github.com/MoveOnOrg/Spoke/tree/v1.4'
     session['heroku_base_url'] = 'https://{}.herokuapp.com'.format(session['app_name'])
     deploy_url = '''
     https://heroku.com/deploy?
@@ -155,7 +155,9 @@ def create_heroku_deploy_button():
     env[TWILIO_MESSAGE_SERVICE_SID]={twilio_message_service_sid}&
     env[TWILIO_STATUS_CALLBACK_URL]={heroku_base_url}/twilio-message-report&
     env[PHONE_NUMBER_COUNTRY]=AU&
-    env[DST_REFERENCE_TIMEZONE]=Australia/Melbourne
+    env[DST_REFERENCE_TIMEZONE]=Australia/Melbourne&
+    env[NOT_IN_USA]=true&
+    env[BULK_SEND_CHUNK_SIZE]=20
     '''.format(**session).replace('\n','').replace(' ','')
     return render_template("deploy.html", deploy_url=deploy_url)
 
